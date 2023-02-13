@@ -17,6 +17,11 @@ public class Util {
     private final static String USERNAME = "root";
     private final static String PASSWORD = "root";
     private static final String DRIVER = "com.mysql.jdbc.Driver";
+    private static SessionFactory sessionFactory;
+
+    private Util() {
+
+    }
 
     public static Connection getConnection() {
         Connection connection;
@@ -29,8 +34,6 @@ public class Util {
         }
         return connection;
     }
-
-    private static SessionFactory sessionFactory;
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
             try {

@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
-    private final Connection connection = Util.getConnection();
-
     private final static String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS `users` (\n" +
             "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
             "  `name` VARCHAR(45) NULL,\n" +
@@ -24,6 +22,8 @@ public class UserDaoJDBCImpl implements UserDao {
     private final static String REMOVE_USER = "DELETE FROM users WHERE id = ?";
     private final static String SELECT = "SELECT * FROM users";
     private final static String DELETE = "DELETE FROM users";
+    private final Connection connection = Util.getConnection();
+
     public UserDaoJDBCImpl() {
 
     }

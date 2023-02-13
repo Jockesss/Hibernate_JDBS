@@ -10,6 +10,8 @@ import org.hibernate.Transaction;
 import java.util.List;
 
 public class UserDaoHibernateImpl implements UserDao {
+    private final SessionFactory sessionFactory = Util.getSessionFactory();
+    private Transaction transaction;
 
     private final static String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS `users` (\n" +
             "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
@@ -18,11 +20,6 @@ public class UserDaoHibernateImpl implements UserDao {
             "  `age` INT NULL,\n" +
             "        PRIMARY KEY (`id`))";
     private final static String DROP = "DROP TABLE IF EXISTS users;";
-    private static  List<User> list = null;
-
-    private final SessionFactory sessionFactory = Util.getSessionFactory();
-    private Transaction transaction;
-
     public UserDaoHibernateImpl() {
 
     }
@@ -95,6 +92,7 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public List<User> getAllUsers() {
+        List<User> list = null;
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
             list = session.createQuery("from User", User.class).list();
