@@ -10,21 +10,19 @@ import org.hibernate.Transaction;
 import java.util.List;
 
 public class UserDaoHibernateImpl implements UserDao {
-    private final SessionFactory sessionFactory = Util.getSessionFactory();
-    private Transaction transaction;
-
+    private final static String DROP = "DROP TABLE IF EXISTS users;";
     private final static String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS `users` (\n" +
             "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
             "  `name` VARCHAR(45) NULL,\n" +
             "  `lastName` VARCHAR(45) NULL,\n" +
             "  `age` INT NULL,\n" +
             "        PRIMARY KEY (`id`))";
-    private final static String DROP = "DROP TABLE IF EXISTS users;";
+    private final SessionFactory sessionFactory = Util.getSessionFactory();
+    private Transaction transaction;
+
     public UserDaoHibernateImpl() {
 
     }
-
-
     @Override
     public void createUsersTable() {
         try (Session session = sessionFactory.openSession()) {
